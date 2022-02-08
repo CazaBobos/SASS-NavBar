@@ -1,0 +1,124 @@
+@use 'sass:map';
+@mixin FlexCenter {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+$bkg: #222327;
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    @include FlexCenter();
+    min-height: 100vh;
+    background: $bkg;
+}
+.navigation{
+    position: relative;
+    width: 400px;
+    height: 70px;
+    background: #fff;
+    @include FlexCenter();
+    border-radius: 10px;
+    ul{
+        display: flex;
+        width: 70%;
+        li{
+            position: relative;
+            list-style: none;
+            width: 70px;
+            height: 70px;
+            z-index: 1;
+            &.active{
+                a {
+                    .icon{
+                        transform: translateY(-32px);
+                    }
+                    .text{
+                        opacity: 1;
+                        transform: translateY(10px);
+                    }
+                }
+            }
+            &:nth-child(1).active ~ .indicator{
+                transform: translateX(calc(70px * 0));
+                background: hsl(132, 98%, 58%);
+            }
+            &:nth-child(2).active ~ .indicator{
+                transform: translateX(calc(70px * 1));
+                background: hsl(0, 98%, 58%);
+            }
+            &:nth-child(3).active ~ .indicator{
+                transform: translateX(calc(70px * 2));
+                background: hsl(234, 98%, 58%);
+            }
+            &:nth-child(4).active ~ .indicator{
+                transform: translateX(calc(70px * 3));
+                background: hsl(61, 98%, 58%);
+            }
+            a{
+                position: relative;
+                @include FlexCenter();
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                font-weight: 500;
+                .icon{
+                    position: relative;
+                    display: block;
+                    line-height: 75px;
+                    font-size: 1.5rem;
+                    text-align: center;
+                    transition: 0.5s;
+                    color: $bkg;
+                }
+                .text{
+                    position: absolute;
+                    color: $bkg;
+                    font-weight: 400;
+                    font-size: 0.75rem;
+                    letter-spacing: 0.05rem;
+                    transition: 0.5s;
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}
+
+.indicator{
+    position: absolute;
+    top: -50%;
+    left:60px;
+    width:70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 6px solid $bkg;
+    transition:  0.5s;
+    &::before{
+        content:'';
+        position: absolute;
+        top: 50%;
+        left: -22px;
+        width: 20px;
+        height: 20px;
+        background:transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 1px -10px 0 0 $bkg;
+    }
+    &::after{
+        content:'';
+        position: absolute;
+        top: 50%;
+        right: -22px;
+        width: 20px;
+        height: 20px;
+        background:transparent;
+        border-top-left-radius: 20px;
+        box-shadow: -1px -10px 0 0 $bkg;
+    }    
+}
